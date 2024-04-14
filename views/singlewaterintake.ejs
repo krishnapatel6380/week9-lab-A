@@ -1,0 +1,70 @@
+<!-- Define a function to render the waterintake -->
+<% function renderWaterintake(waterintake) { %>
+    <div class="item-details">
+      <article>
+        <h2>Date: <%= formatDate(waterintake.date) %>
+        </h2>
+       
+        <p>
+          <strong>AmountInLiters:</strong>
+          <%= waterintake.amountInLiters %><br />
+          
+            <strong>Comments:</strong>
+            <%= waterintake.comments %>
+        </p>
+  
+    
+        <!-- Update button -->
+        <form
+          class="action-form"
+          method="GET"
+          action="/single-waterintake/update/<%= waterintake._id %>"
+        >
+          <button type="submit" class="update">update</button>
+        </form>
+    
+        <!-- Delete button -->
+        <form
+          class="action-form"
+          method="POST"
+          action="/single-waterintake/<%= waterintake._id %>?_method=DELETE"
+    >
+          <button type="submit">delete</button>
+        </form>
+      </article>
+    </div>
+    <% } %>
+  
+      
+
+  
+  <!DOCTYPE html>
+  <html lang="en">
+    <!-- Pass a JavaScript variable to a partial in EJS -->
+    <%- include('partials/head.ejs', { title: waterintake.date }) %>
+    <body>
+      <%- include('partials/navbar.ejs') %>
+      
+    
+      <div class="content">
+        <div class="home">
+          <div class="item-list">
+            <% if (waterintake) { %> <%= renderWaterintake(waterintake) %> <% } else { %>
+            <p>No waterintake found.</p>
+            <% } %>
+          </div>
+        </div>
+      </div>
+  
+      <%- include('partials/footer.ejs') %>
+    </body>
+  </html>
+
+  <% 
+  function formatDate(dateString) {
+      const date = new Date(dateString);
+      // Format the date as desired (e.g., YYYY-MM-DD)
+      const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      return formattedDate;
+  } 
+  %>

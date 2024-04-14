@@ -1,0 +1,32 @@
+
+<!-- updatewaterintake.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Pass a JavaScript variable to a partial in EJS -->
+  <%- include('partials/head.ejs', { title: "Update page" }) %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="content">
+    <div class="update">
+      <h2>Update Waterintake</h2>
+      <form action="/single-waterintake/<%= waterintake._id %>?_method=PUT" method="POST">
+
+        <label>Date:</label>
+        <input type="date" value="<%= waterintake.date.toISOString().substr(0, 10) %>" id="date" name="date" required />
+
+        <label for="amountInLiters">AmountInLiters:</label>
+        <input type="number" id="amountInLiters" name="amountInLiters" value="<%= waterintake.amountInLiters %>"/>
+
+        <label for="comments">Comments:</label>
+        <textarea id="comments" name="comments" rows="4" required><%= waterintake.comments %></textarea>
+
+        <button type="submit">Update Waterintake</button>
+      </form>
+    </div>
+  </div>
+
+
+  <%- include('partials/footer') %>
+</body>
+</html>

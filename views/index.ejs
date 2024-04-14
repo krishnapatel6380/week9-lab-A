@@ -1,0 +1,42 @@
+<!-- Define a function to render each waterintake -->
+<% function renderWaterintake(waterintake) { %>
+    <div class="item-preview">
+      <a href="/single-waterintake/<%= waterintake._id %>">
+        <h2>Name: <%= formatDate(waterintake.date) %></h2>
+        <h5>Address: <%= waterintake.amountInLiters %></h5>
+        <h5>Address: <%= waterintake.comments %></h5>
+      </a>
+    </div>
+    <% } %>
+    
+    <!DOCTYPE html>
+    <html lang="en">
+      <!-- Pass a JavaScript variable to a partial in EJS -->
+      <%- include('partials/head.ejs', { title: "Home page" }) %>
+    
+      <body>
+        <%- include('partials/navbar') %>
+    
+        <div class="content">
+          <div class="home">
+            <div class="item-list">
+              <% if (waterintakes.length > 0) { %>
+              <!-- Call the renderWaterintake function for each waterintake -->
+              <% waterintakes.forEach(renderWaterintake); %> <% } else { %>
+              <p>No waterintakes found.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+    
+        <%- include('partials/footer') %>
+      </body>
+    </html>
+    <% 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        // Format the date as desired (e.g., YYYY-MM-DD)
+        const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        return formattedDate;
+    } 
+    %>
